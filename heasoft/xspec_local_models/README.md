@@ -28,7 +28,7 @@ Example directory structure
 - - - (other Heasoft versions you have built the package for)
 
 Once compiled, you will be able to load this local model package just like any other with the XSPEC command:
-XSPEC12> lmod local /opt/software/xspec_models/build/[heasoft_version]
+> XSPEC12> lmod local /opt/software/xspec_models/build/[heasoft_version]
 
 You can also get XSPEC to load the model package automatically on start up. To do this for every user on your computer, 
 1) Go to the Xspec/src/scripts directory within your Heasoft installation
