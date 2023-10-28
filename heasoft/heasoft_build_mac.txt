@@ -1,0 +1,47 @@
+Instructions for compiling Heasoft from source on macOS
+
+Heasoft version: 6.32
+macOS version: 14.0 Sonoma
+Platform: Apple Silicon and Intel
+
+---
+Prerequisites
+- gcc12 from MacPorts
+- libpng fron MacPorts
+- ncurses from MacPorts
+- readline from MacPorts
+- Anaconda, Python 3.10.9 (numpy and scipy required)
+- XQuartz
+
+---
+Notes
+- relxill models require Heasoft to be compiled using GCC, not Apple-provided clang compilers
+- XCode Command Line Utilities 15.0.0 (for Sonoma but installed as automatic update on previous MacOS versions just before Sonoma release date) changes the way the linker works and may cause GCC to break. This has been fixed in the updated version of the gcc12 port, and running "sudo port self update && sudo port upgrade outdated" before installing Heasoft should fix it (but see workaround below)
+
+---
+Installation:
+
+# Download
+cd /opt/software/heasoft
+wget https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/lheasoft6.32.1/heasoft-6.32.1src.tar.gz
+cd heasoft-6.32.1/BUILD_DIR
+
+# set up environment to point to compilers
+export CC=/opt/local/bin/gcc-mp-12
+export CXX=/opt/local/bin/g++-mp-12
+export FC=/opt/local/bin/gfortran-mp-12
+export PERL=/usr/bin/perl
+export PYTHON=~/anaconda3/bin/python3
+
+./configure --with-png=/opt/local --x-libraries=/opt/X11/lib --x-includes=/opt/X11/include && make && make install
+
+
+---
+Workaround for GCC linker errors with XCode Command Line Tools 15.0.0
+(should no longer be required after updating to latest gcc12 port. -ld64 flag switches to classic linker)
+
+export CC="/opt/local/bin/gcc-mp-12 -ld64"
+export CXX="/opt/local/bin/g++-mp-12 -ld64"
+export CFLAGS=-ld64
+export CPPFLAGS=-ld64 
+
