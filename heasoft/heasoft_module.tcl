@@ -1,4 +1,4 @@
-#%Module1.0#####################################################################
+Module1.0#####################################################################
 ##
 ## modules heasoft/6.32
 ##
@@ -38,9 +38,9 @@ setenv	XANADU		$dir
 setenv	XANBIN		$builddir
 setenv	XRDEFAULTS	$builddir/xrdefaults
 
-setenv	LMODDIR		/data/software/xspec_models/build/$version
+setenv	LMODDIR		/software/xspec_models/build/$version
 
-setenv	WARMABS_DATA	/data/software/xspec_models/warmabs/data
+setenv	WARMABS_DATA	/software/xspec_models/warmabs/data
 setenv	WARMABS_POP	pops.fits
 
 prepend-path	PATH		$builddir/bin
