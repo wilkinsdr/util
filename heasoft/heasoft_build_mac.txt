@@ -1,7 +1,7 @@
 Instructions for compiling Heasoft from source on macOS
 
-Heasoft version: 6.32
-macOS version: 14.0 Sonoma
+Heasoft version: 6.33
+macOS version: 14.2 Sonoma
 Platform: Apple Silicon and Intel
 
 ---
@@ -10,6 +10,7 @@ Prerequisites
 - libpng fron MacPorts
 - ncurses from MacPorts
 - readline from MacPorts
+- perl from MacPorts
 - Anaconda, Python 3.10.9 (numpy and scipy required)
 - XQuartz
 
@@ -23,14 +24,15 @@ Installation:
 
 # Download
 cd /opt/software/heasoft
-wget https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/lheasoft6.32.1/heasoft-6.32.1src.tar.gz
-cd heasoft-6.32.1/BUILD_DIR
+wget https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/lheasoft6.33/heasoft-6.33src.tar.gz
+tar xzf heasoft-6.33src.tar.gz
+cd heasoft-6.33/BUILD_DIR
 
 # set up environment to point to compilers
 export CC=/opt/local/bin/gcc-mp-12
 export CXX=/opt/local/bin/g++-mp-12
 export FC=/opt/local/bin/gfortran-mp-12
-export PERL=/usr/bin/perl
+export PERL=/opt/local/bin/perl
 export PYTHON=~/anaconda3/bin/python3
 
 ./configure --with-png=/opt/local --x-libraries=/opt/X11/lib --x-includes=/opt/X11/include && make && make install
