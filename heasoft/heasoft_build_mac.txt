@@ -11,7 +11,7 @@ Prerequisites
 - ncurses from MacPorts
 - readline from MacPorts
 - perl from MacPorts
-- Anaconda, Python 3.10.9 (numpy and scipy required)
+- Anaconda, Python 3.11.6 (numpy and scipy required)
 - XQuartz
 
 ---
