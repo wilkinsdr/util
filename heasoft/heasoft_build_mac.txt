@@ -6,6 +6,7 @@ Platform: Apple Silicon and Intel
 
 ---
 Prerequisites
+- Xcode command line utilities 15.1 (there is currently an issue with 15.3, see notes)
 - gcc12 from MacPorts
 - libpng fron MacPorts
 - ncurses from MacPorts
@@ -17,8 +18,9 @@ Prerequisites
 ---
 Notes
 - relxill models require Heasoft to be compiled using GCC, not Apple-provided clang compilers
-- XCode Command Line Utilities 15.0.0 (for Sonoma but installed as automatic update on previous MacOS versions just before Sonoma release date) changes the way the linker works and may cause GCC to break. This has been fixed in the updated version of the gcc12 port, and running "sudo port self update && sudo port upgrade outdated" before installing Heasoft should fix it (but see workaround below)
-
+- Xcode Command Line Utilities 15.0.0 (for Sonoma but installed as automatic update on previous MacOS versions just before Sonoma release date) changes the way the linker works and may cause GCC to break. This has been fixed in the updated version of the gcc12 port, and running "sudo port self update && sudo port upgrade outdated" before installing Heasoft should fix it (but see workaround below)
+- Even when compiling with gcc from MacPorts, the Apple Xcode Command Line Utilities still provide a lot of the system libraries. If you get compiler errors referring to various system headers and libraries (partiucularly after an Xcode update), these can often be fixed by updating GCC from MacPorts. Run "sudo port selfupdate" followed by "sudo port upgrade outdated".
+- There is currently a problem with XCode Command Line Utilities 15.3 and it is necessary to downgrade to 15.1. Old versions of the Command Line Utilities can be downloaded from https://developer.apple.com/support/xcode/ (Apple Developer account required). Once installed, switch to this version by running "sudo xcode-select --switch /Library/Developer/CommandLineTools", then try building Heasoft again.
 ---
 Installation:
 
