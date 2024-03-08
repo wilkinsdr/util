@@ -1,5 +1,7 @@
 XSPEC Local Model Library Builder
+
 D.R. Wilkins
+
 Last updated: July 2023
 
 Script to comile a single XSPEC local model package from multiple packages, for example if you have multiple local models that you have obtained from different sources
@@ -32,6 +34,6 @@ Once compiled, you will be able to load this local model package just like any o
 
 You can also get XSPEC to load the model package automatically on start up. To do this for every user on your computer, 
 1) Go to the Xspec/src/scripts directory within your Heasoft installation
-2) Add the line "load /opt/software/xspec_models/build/[heasoft_version]/liblocal.so" to the end of the file glocal_customize.tcl (note that it's liblocal.dylib on mac, instead of .so) 
+2) Add the line "load /opt/software/xspec_models/build/[heasoft_version]/liblocal.so" to the end of the file global_customize.tcl (note that it's liblocal.dylib on mac, instead of .so) 
 3) Run "hmake install" within that directory (you will need Heasoft initialised in the shell to do this)
 
