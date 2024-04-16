@@ -42,6 +42,19 @@ export PYTHON=~/anaconda3/bin/python3
 ./configure --with-png=/opt/local --x-libraries=/opt/X11/lib --x-includes=/opt/X11/include && make && make install
 
 ---
+Relxill models with clang
+
+The relxill model package requires C++14 language features to be enabled in clang with the -std=c++14 flag.
+Use the script from the relxill developers at https://heasarc.gsfc.nasa.gov/docs/xanadu/xspec/issues/xscpp14_patch.sh
+(run in the Xspec/src directory)
+
+Contents of this script (to run in Xspec/BUILD_DIR):
+sed -i '' 's/CXXFLAGS -std=c++11/CXXFLAGS -std=c++14/' configure.in
+sed -i '' 's/CXXFLAGS -std=c++11/CXXFLAGS -std=c++14/' configure
+sed -i '' 's/c++11/c++14/' hmakerc
+hmake install-BUILD_DIR
+
+---
 Downgrading XCode Command Line Utilities 
 
 Heasoft 6.33 and below do not comple with XCode Command Line Utilities 15.3 and it is necessary to downgrade to 15.1. 
@@ -57,17 +70,5 @@ export CXX="/opt/local/bin/g++-mp-12 -ld64"
 export CFLAGS=-ld64
 export CPPFLAGS=-ld64 
 
----
-Relxill models with clang
 
-The relxill model package requires C++14 language features to be enabled in clang with the -std=c++14 flag.
-Use the script from the relxill developers at https://heasarc.gsfc.nasa.gov/docs/xanadu/xspec/issues/xscpp14_patch.sh
-(run in the Xspec/src directory)
-
-Contents of this script (to run in Xspec/src):
-cd ../BUILD_DIR
-sed -i '' 's/CXXFLAGS -std=c++11/CXXFLAGS -std=c++14/' configure.in
-sed -i '' 's/CXXFLAGS -std=c++11/CXXFLAGS -std=c++14/' configure
-sed -i '' 's/c++11/c++14/' hmakerc
-hmake install-BUILD_DIR
 
