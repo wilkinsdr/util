@@ -17,7 +17,7 @@ Prerequisites
 
 ---
 Notes
-- Since Heasoft 6.33.1, the preferre compilers are the Apple-provided clang (the updates to fix errors with command line utilities 15.3 seem to break GCC)
+- Since Heasoft 6.33.1, the preferred compilers are the Apple-provided clang (the updates to fix errors with command line utilities 15.3 seem to break GCC)
 - Even when compiling with gcc from MacPorts, the Apple Xcode Command Line Utilities still provide a lot of the system libraries. 
   If you get compiler errors referring to various system headers and libraries (partiucularly after an Xcode update), these can often be fixed 
   by updating GCC from MacPorts. Run "sudo port selfupdate" followed by "sudo port upgrade outdated".
