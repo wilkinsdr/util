@@ -1,13 +1,13 @@
 Instructions for compiling Heasoft from source on macOS
 
-Heasoft version: 6.33
+Heasoft version: 6.33.1
 macOS version: 14.2 Sonoma
 Platform: Apple Silicon and Intel
 
 ---
 Prerequisites
-- Xcode command line utilities 15.1 (there is currently an issue with 15.3, see notes)
-- gcc12 from MacPorts
+- Xcode command line utilities 15.3
+- gcc12 from MacPorts (for gfortran)
 - libpng fron MacPorts
 - ncurses from MacPorts
 - readline from MacPorts
@@ -17,28 +17,36 @@ Prerequisites
 
 ---
 Notes
-- relxill models require Heasoft to be compiled using GCC, not Apple-provided clang compilers
-- Xcode Command Line Utilities 15.0.0 (for Sonoma but installed as automatic update on previous MacOS versions just before Sonoma release date) changes the way the linker works and may cause GCC to break. This has been fixed in the updated version of the gcc12 port, and running "sudo port self update && sudo port upgrade outdated" before installing Heasoft should fix it (but see workaround below)
-- Even when compiling with gcc from MacPorts, the Apple Xcode Command Line Utilities still provide a lot of the system libraries. If you get compiler errors referring to various system headers and libraries (partiucularly after an Xcode update), these can often be fixed by updating GCC from MacPorts. Run "sudo port selfupdate" followed by "sudo port upgrade outdated".
-- There is currently a problem with XCode Command Line Utilities 15.3 and it is necessary to downgrade to 15.1. Old versions of the Command Line Utilities can be downloaded from https://developer.apple.com/support/xcode/ (Apple Developer account required). Once installed, switch to this version by running "sudo xcode-select --switch /Library/Developer/CommandLineTools", then try building Heasoft again.
+- Since Heasoft 6.33.1, the preferre compilers are the Apple-provided clang (the updates to fix errors with command line utilities 15.3 seem to break GCC)
+- Even when compiling with gcc from MacPorts, the Apple Xcode Command Line Utilities still provide a lot of the system libraries. 
+  If you get compiler errors referring to various system headers and libraries (partiucularly after an Xcode update), these can often be fixed 
+  by updating GCC from MacPorts. Run "sudo port selfupdate" followed by "sudo port upgrade outdated".
+- relxill models can now be compiled using Apple-provided clang compilers, however it is necessary to change the build configuration to add
+  the compiler flag -std=c++14. Use the script from the relxill developers at https://heasarc.gsfc.nasa.gov/docs/xanadu/xspec/issues/xscpp14_patch.sh
 ---
 Installation:
 
 # Download
 cd /opt/software/heasoft
-wget https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/lheasoft6.33/heasoft-6.33src.tar.gz
-tar xzf heasoft-6.33src.tar.gz
-cd heasoft-6.33/BUILD_DIR
+wget https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/lheasoft6.33/heasoft-6.33.1src.tar.gz
+tar xzf heasoft-6.33.1src.tar.gz
+cd heasoft-6.33.1/BUILD_DIR
 
 # set up environment to point to compilers
-export CC=/opt/local/bin/gcc-mp-12
-export CXX=/opt/local/bin/g++-mp-12
+export CC=/usr/bin/clang
+export CXX=/usr/bin/clang++
 export FC=/opt/local/bin/gfortran-mp-12
 export PERL=/opt/local/bin/perl
 export PYTHON=~/anaconda3/bin/python3
 
 ./configure --with-png=/opt/local --x-libraries=/opt/X11/lib --x-includes=/opt/X11/include && make && make install
 
+---
+Downgrading XCode Command Line Utilities 
+
+Heasoft 6.33 and below do not comple with XCode Command Line Utilities 15.3 and it is necessary to downgrade to 15.1. 
+Old versions of the Command Line Utilities can be downloaded from https://developer.apple.com/support/xcode/ (Apple Developer account required). 
+Once installed, switch to this version by running "sudo xcode-select --switch /Library/Developer/CommandLineTools", then try building Heasoft again.
 
 ---
 Workaround for GCC linker errors with XCode Command Line Tools 15.0.0
@@ -48,4 +56,18 @@ export CC="/opt/local/bin/gcc-mp-12 -ld64"
 export CXX="/opt/local/bin/g++-mp-12 -ld64"
 export CFLAGS=-ld64
 export CPPFLAGS=-ld64 
+
+---
+Relxill models with clang
+
+The relxill model package requires C++14 language features to be enabled in clang with the -std=c++14 flag.
+Use the script from the relxill developers at https://heasarc.gsfc.nasa.gov/docs/xanadu/xspec/issues/xscpp14_patch.sh
+(run in the Xspec/src directory)
+
+Contents of this script (to run in Xspec/src):
+cd ../BUILD_DIR
+sed -i '' 's/CXXFLAGS -std=c++11/CXXFLAGS -std=c++14/' configure.in
+sed -i '' 's/CXXFLAGS -std=c++11/CXXFLAGS -std=c++14/' configure
+sed -i '' 's/c++11/c++14/' hmakerc
+hmake install-BUILD_DIR
 
