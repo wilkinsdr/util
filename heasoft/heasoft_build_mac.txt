@@ -1,7 +1,7 @@
 Instructions for compiling Heasoft from source on macOS
 
 Heasoft version: 6.33.1
-macOS version: 14.2 Sonoma
+macOS version: 14.4 Sonoma
 Platform: Apple Silicon and Intel
 
 ---
