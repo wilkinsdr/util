@@ -37,7 +37,7 @@ export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 export FC=/opt/local/bin/gfortran-mp-12
 export PERL=/opt/local/bin/perl
-export PYTHON=~/anaconda3/bin/python3
+export PYTHON=/opt/anaconda3/bin/python3
 
 ./configure --with-png=/opt/local --x-libraries=/opt/X11/lib --x-includes=/opt/X11/include && make && make install
 
