@@ -56,6 +56,7 @@ hmake install-BUILD_DIR
 
 ---
 Downgrading XCode Command Line Utilities 
+(should no longer be required with Heaasoft 6.33.1)
 
 Heasoft 6.33 and below do not comple with XCode Command Line Utilities 15.3 and it is necessary to downgrade to 15.1. 
 Old versions of the Command Line Utilities can be downloaded from https://developer.apple.com/support/xcode/ (Apple Developer account required). 
