@@ -28,9 +28,9 @@ Installation:
 
 # Download
 cd /opt/software/heasoft
-wget https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/lheasoft6.33/heasoft-6.33.1src.tar.gz
-tar xzf heasoft-6.33.1src.tar.gz
-cd heasoft-6.33.1/BUILD_DIR
+wget https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/lheasoft6.34/heasoft-6.34src.tar.gz
+tar xzf heasoft-6.34src.tar.gz
+cd heasoft-6.34/BUILD_DIR
 
 # set up environment to point to compilers
 export CC=/usr/bin/clang
