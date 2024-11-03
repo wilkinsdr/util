@@ -6,8 +6,8 @@ Platform: Apple Silicon and Intel
 
 ---
 Prerequisites
-- Xcode command line utilities 16.0.0
-- gcc12 from MacPorts (for gfortran)
+- Xcode command line utilities 16.1.0
+- gcc14 from MacPorts (for gfortran)
 - libpng fron MacPorts
 - ncurses from MacPorts
 - readline from MacPorts
@@ -35,7 +35,7 @@ cd heasoft-6.34/BUILD_DIR
 # set up environment to point to compilers
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
-export FC=/opt/local/bin/gfortran-mp-12
+export FC=/opt/local/bin/gfortran-mp-14
 export PERL=/opt/local/bin/perl
 export PYTHON=/opt/anaconda3/bin/python3
 
@@ -72,4 +72,12 @@ export CFLAGS=-ld64
 export CPPFLAGS=-ld64 
 
 
+---
+MacPorts compile errors with Command Line Tools 16.0
+(can be due to an old include directory being left behind by the installer that causes standard C++ headers to not be found)
 
+sudo rm -rf /Library/Developer/CommandLineTools/usr/include/c++
+
+Failing that, completely erase the Command Line Tools and reinstall from the DMG available at https://developer.apple.com/support/xcode/
+sudo rm -rf /Library/Developer/CommandLineTools
+(the above step may still be required)
