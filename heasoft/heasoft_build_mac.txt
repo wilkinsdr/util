@@ -55,6 +55,16 @@ sed -i '' 's/c++11/c++14/' hmakerc
 hmake install-BUILD_DIR
 
 ---
+MacPorts compile errors with Command Line Tools 16.0 when installing GCC etc.
+(can be due to an old include directory being left behind by the installer that causes standard C++ headers to not be found)
+
+sudo rm -rf /Library/Developer/CommandLineTools/usr/include/c++
+
+Failing that, completely erase the Command Line Tools and reinstall from the DMG available at https://developer.apple.com/support/xcode/
+sudo rm -rf /Library/Developer/CommandLineTools
+(the above step may still be required)
+
+---
 Downgrading XCode Command Line Utilities 
 (should no longer be required with Heaasoft 6.33.1)
 
@@ -71,13 +81,3 @@ export CXX="/opt/local/bin/g++-mp-12 -ld64"
 export CFLAGS=-ld64
 export CPPFLAGS=-ld64 
 
-
----
-MacPorts compile errors with Command Line Tools 16.0
-(can be due to an old include directory being left behind by the installer that causes standard C++ headers to not be found)
-
-sudo rm -rf /Library/Developer/CommandLineTools/usr/include/c++
-
-Failing that, completely erase the Command Line Tools and reinstall from the DMG available at https://developer.apple.com/support/xcode/
-sudo rm -rf /Library/Developer/CommandLineTools
-(the above step may still be required)
