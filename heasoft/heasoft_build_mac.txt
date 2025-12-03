@@ -1,7 +1,7 @@
 Instructions for compiling Heasoft from source on macOS
 
-Heasoft version: 6.34.2
-macOS version: 15 Sequoia
+Heasoft version: 6.36
+macOS version: 26 Tahoe
 Platform: Apple Silicon and Intel
 
 ---
@@ -15,22 +15,13 @@ Prerequisites
 - Anaconda, Python 3.13 (numpy and scipy required)
 - XQuartz
 
----
-Notes
-- Since Heasoft 6.33.1, the preferred compilers are the Apple-provided clang (the updates to fix errors with command line utilities 15.3 seem to break GCC)
-- Even when compiling with gcc from MacPorts, the Apple Xcode Command Line Utilities still provide a lot of the system libraries. 
-  If you get compiler errors referring to various system headers and libraries (partiucularly after an Xcode update), these can often be fixed 
-  by updating GCC from MacPorts. Run "sudo port selfupdate" followed by "sudo port upgrade outdated".
-- relxill models can now be compiled using Apple-provided clang compilers, however it is necessary to change the build configuration to add
-  the compiler flag -std=c++14. Use the script from the relxill developers at https://heasarc.gsfc.nasa.gov/docs/xanadu/xspec/issues/xscpp14_patch.sh
----
 Installation:
 
 # Download
 cd /opt/software/heasoft
-wget https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/lheasoft6.34/heasoft-6.34.2src.tar.gz
-tar xzf heasoft-6.34.2src.tar.gz
-cd heasoft-6.34.2/BUILD_DIR
+wget https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/lheasoft6.34/heasoft-6.36src.tar.gz
+tar xzf heasoft-6.36src.tar.gz
+cd heasoft-6.36/BUILD_DIR
 
 # set up environment to point to compilers
 export CC=/usr/bin/clang
@@ -42,7 +33,19 @@ export PYTHON=/opt/anaconda3/bin/python3
 ./configure --with-png=/opt/local --x-libraries=/opt/X11/lib --x-includes=/opt/X11/include && make && make install
 
 ---
+Notes
+- Since Heasoft 6.33.1, the preferred compilers are the Apple-provided clang (the updates to fix errors with command line utilities 15.3 seem to break GCC)
+- Even when compiling with gcc from MacPorts, the Apple Xcode Command Line Utilities still provide a lot of the system libraries. 
+  If you get compiler errors referring to various system headers and libraries (partiucularly after an Xcode update), these can often be fixed 
+  by updating GCC from MacPorts. Run "sudo port selfupdate" followed by "sudo port upgrade outdated".
+- relxill models can now be compiled using Apple-provided clang compilers, however (before Heasoft 6.36) it is necessary to change the build configuration to add
+  the compiler flag -std=c++14. Use the script from the relxill developers at https://heasarc.gsfc.nasa.gov/docs/xanadu/xspec/issues/xscpp14_patch.sh
+---
+Old workarounds below for reference
+---
 Relxill models with clang
+
+(no longer required since Heasoft 6.36)
 
 The relxill model package requires C++14 language features to be enabled in clang with the -std=c++14 flag.
 Use the script from the relxill developers at https://heasarc.gsfc.nasa.gov/docs/xanadu/xspec/issues/xscpp14_patch.sh
